@@ -17,6 +17,7 @@ const typeDefs = gql`
 
 	type Query {
 		movies: [Movie]
+		movie(id:ID): Movie
 	}
 
 `
@@ -29,13 +30,13 @@ const movies = [
 		rating: 5
 	},
 	{
-		id: "1",
+		id: "2",
 		title: "Avatar",
 		releaseDate: "28-11-2009",
 		rating: 4
 	},
 	{
-		id: "1",
+		id: "3",
 		title: "Unity",
 		releaseDate: "12-09-2015",
 		rating: 3
@@ -46,6 +47,10 @@ const resolvers = {
 	Query: {
 		movies: () => {
 		  	return movies
+		},
+		movie: (obg, {id}, context, info) => {
+			const foundMovie = movies.find((movie) => movie.id === id)
+			return foundMovie
 		}
 	}
 }
